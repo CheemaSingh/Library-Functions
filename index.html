@@ -14,7 +14,7 @@
     </div>
   <main>
     <h1>the library</h1>
-    <p>search for a book by author's by name</p>
+    <p>Search for a book by Title, Genre or author's name</p>
     <input id="authorSearch" >
     <button type="button"  id="autSearch">search</button>
     <ol id='result'></ol>
@@ -40,12 +40,18 @@
         <span class="button" onclick="login();">Login</span> or <span class="button" onclick="showDiv('sign_up');">Goto Sign Up</span>
     </div>
     <div class="form animated fadeIn" id="profile">
-    <h2>Profile</h2>                
+        <p>Search for book to borrow it.</p> 
+    <h2>Profile</h2> 
+                      
         <label>Name</label>
         <label id="profile_name" class="profile_label"></label>
         <label>Email</label>
         <label id="profile_email" class="profile_label"></label>
+        <div class="borrowed animated fadeIn" id="books_borrowed">
+            <div>Borrowed Books</div>
+        </div>
         <span class="button" onclick="showDiv('login');logout();">Logout</span>
+        
     </div>
   <footer>
     <p>wmdd 4820 lending library 2016</p>

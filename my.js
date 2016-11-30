@@ -1,5 +1,6 @@
 ﻿var users = [];
 var session =0;
+var borrowed =[];
 
 //===================START==========FUNCTION TO CREATE NEW USER========================
 function signup() {
@@ -63,6 +64,7 @@ function login() {
             return obj.email === login_email && obj.password === login_password;
         })[0];
         if (obj) {
+            document.getElementById('books_borrowed').innerHTML ='';
             shownoti('Login successfull', 'success');
             document.getElementById('login_email').value = '';
             document.getElementById('login_password').value = '';
@@ -71,6 +73,15 @@ function login() {
             showDiv('profile');
             session =1;
             hideAllBooks('result');
+
+            var obj1 = borrowed.filter(function (obj1) {
+                return obj1.email === login_email;
+            })[0];
+            if (obj1){
+                document.getElementById('books_borrowed').innerHTML =document.getElementById('books_borrowed').innerHTML + '<p><span> Title: '+ obj1.title + '</span><span> By: ' + obj1.author + '</span><span> Due Date: ' + obj1.duedate +'</span></p>';
+                document.getElementById('books_borrowed').style.display= 'block';
+            }
+
         }
         else {
             shownoti('Login Failed', 'error');
@@ -85,6 +96,38 @@ function logout(){
     hideAllBooks('result');
 }
 //======================END=============FUNCTION LOGOUT==================================
+
+
+//=====================START============FUNCTION TO BORROW=====================================
+function borrow(book){  
+   
+    var today=new Date();
+    var requiredDate=new Date(today.getFullYear(),today.getMonth(),today.getDate()+7)    
+    var dueDate= requiredDate.getDate() + '/' + (requiredDate.getMonth() + 1) + '/' +  requiredDate.getFullYear();
+    var booktitle = book.getAttribute('alt');
+    var obj = books.filter(function (obj) {
+        return obj.title === booktitle;
+    })[0];
+    if (obj)
+    {
+        if(obj.copies<1){
+            shownoti('Sorry all copies are borrowed','error');
+        }
+        else
+        {
+            obj.copies = obj.copies - 1;  
+            borrowed.push({ name: document.getElementById('profile_name').innerHTML, email: document.getElementById('profile_email').innerHTML, title: booktitle, duedate:dueDate,author: obj.author });
+            shownoti('Book borrowed successfully, due date is: ' + dueDate ,'success');
+            hideAllBooks('result');
+            document.getElementById('books_borrowed').innerHTML =document.getElementById('books_borrowed').innerHTML + '<p><span> Title: '+ booktitle + '</span><span> By: ' + obj.author + '</span><span> Due Date: ' + dueDate +'</span></p>';
+            document.getElementById('books_borrowed').style.display= 'block';
+        }
+    }
+}
+
+//=====================END============FUNCTION TO BORROW=====================================
+
+
 
 //================START===========FUNCTION TO CREATE NOTIFICATION================================
 function shownoti(message, type) {
@@ -170,7 +213,7 @@ function showDiv(div) {
 //=================START=========================== APP.JS CODE===================================
 var books = [
   { author: 'Thomas Pynchon', title: 'Bleeding Edge', genre: 'fiction', copies: 2 },
-  { author: 'Haruki Murakami', title: '1Q84', genre: 'fiction', copies: 2 },
+  { author: 'Haruki Murakami', title: 'Bolo Tara Ra Ra', genre: 'fiction', copies: 2 },
   { author: 'John D MacDonald', title: 'Nightmare in Pink', genre: 'mystery', copies: 1 },
   { author: 'Ncholas Zakas', title: 'Understanding Ecmascript 6', genre: 'javascript', copies: 1 },
   { author: 'Thomas Phillips', title: 'Long Slow Distance', genre: 'fiction', copies: 1 }
@@ -189,7 +232,7 @@ function authSearch () {
                 listItem.setAttribute('alt',x.title);
         }
 
-          let textnode = document.createTextNode(`${x.title} by ${x.author} in ${x.genre}`)
+            let textnode = document.createTextNode(`${x.title} by ${x.author} in ${x.genre} [${x.copies} Copies Available]`)
       listItem.appendChild(textnode)
       document.getElementById('result').appendChild(listItem)
       if(session==1){

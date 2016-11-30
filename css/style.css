@@ -166,7 +166,27 @@ footer {
         margin-top:0.5rem;
 }
     .borrow:hover {
-        background:blue;
+        background:#9C27B0;
         color:white;
         
     }
+.borrowed {
+    margin-bottom: 2rem;
+    display:none;
+}
+    .borrowed div {
+        font-size:2rem;
+    }
+    .borrowed span {
+        display:block;
+    }
+    .borrowed p {
+        margin-top:2rem;
+        margin-bottom:2rem;
+    }
+.form p {
+    margin-top:2rem;
+    margin-bottom:2rem;
+    font-size:1.2rem;
+    color:blue;
+}
