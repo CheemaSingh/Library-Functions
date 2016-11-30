@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>lending library</title>
+  <link rel="stylesheet" href="css/style.css">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="notification animated" id="notification">
+        <i class="fa fa-exclamation-triangle" id="noti_icon_error" aria-hidden="true"></i>
+        <i class="fa fa-check-circle" id="noti_icon_success" aria-hidden="true"></i><span id="noti_message">Hello</span>
+    </div>
+  <main>
+    <h1>the library</h1>
+    <p>search for a book by author's by name</p>
+    <input id="authorSearch" >
+    <button type="button"  id="autSearch">search</button>
+    <ol id='result'></ol>
+
+  </main>
+    <div class="form animated fadeIn" style="display:block;" id="sign_up">
+    <h2>Sign Up</h2>
+        <label>Name</label>
+        <input id="signup_name" type="text" name="name" value="" />
+        <label>Email</label>
+        <input id="signup_email" type="email"  name="email" value="" />
+        <label>Password</label>
+        <input id="signup_password" type="password" name="password" value="" />
+        <span class="button" onclick="signup();">Sign Up</span> or <span class="button" onclick="showDiv('login');">Goto Login</span>
+    </div>
+
+    <div class="form animated fadeIn" id="login">
+    <h2>Login</h2>        
+        <label>Email</label>
+        <input id="login_email" type="email"  name="email" value="" />
+        <label>Password</label>
+        <input id="login_password" type="password" name="password" value="" />
+        <span class="button" onclick="login();">Login</span> or <span class="button" onclick="showDiv('sign_up');">Goto Sign Up</span>
+    </div>
+    <div class="form animated fadeIn" id="profile">
+    <h2>Profile</h2>                
+        <label>Name</label>
+        <label id="profile_name" class="profile_label"></label>
+        <label>Email</label>
+        <label id="profile_email" class="profile_label"></label>
+        <span class="button" onclick="showDiv('login');logout();">Logout</span>
+    </div>
+  <footer>
+    <p>wmdd 4820 lending library 2016</p>
+  </footer>
+  <script src="app.js"></script>
+    <script src="my.js"></script>
+</body>
+</html>
